@@ -3,7 +3,7 @@ using namespace std;
 
 //函数参数传递的方法：值传递、地址传递、引用传递
 
-////值传递，交换两数的值
+//值传递，交换两数的值
 //void swap_1(int x, int y) {
 //	int temp = x;
 //	x = y;
