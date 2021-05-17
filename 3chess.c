@@ -1,159 +1,159 @@
-//#define _CRT_SECURE_NO_WARNINGS
-//#include<stdio.h>
-//#include<stdlib.h>
-//#include<time.h>
-//#include<Windows.h>
-////Èı×ÓÆåÓÎÏ·
-//#define MAX_row 3
-//#define MAX_col 3
-//
-//void menu() {
-//	printf("*********************************************\n");
-//	printf("**************      ÓÎÏ·²Ëµ¥      ***********\n");
-//	printf("**************  1.¿ªÊ¼Èı×ÓÆåÓÎÏ·  ***********\n");
-//	printf("**************  0.ÍË³öÓÎÏ·²Ëµ¥£¡  ***********\n");
-//	printf("*********************************************\n");
-//}
-//
-//void init(char c[MAX_row][MAX_col]) {
-//	for (int row = 0; row < MAX_row; row++) {
-//		for (int col = 0; col < MAX_col; col++) {
-//			c[row][col] = ' ';
-//		}
-//	}
-//}
-//
-//void printC(char c[MAX_row][MAX_col]) {
-//	printf("+---+---+---+\n");
-//	for (int row = 0; row < MAX_row; row++) {
-//		printf("| ");
-//		for (int col = 0; col < MAX_col; col++) {
-//			printf("%c | ", c[row][col]);
-//		}
-//		printf("\n+---+---+---+\n");
-//	}
-//}
-//
-//void playC(char c[MAX_row][MAX_col]) {
-//	int row = 0;
-//	int col = 0;
-//	printf("ÇëÍæ¼ÒÂä×ÓÏÂÆå\n");
-//	while (1) {
-//		printf("ÇëÊäÈëÄãÒªÏÂµÄÎ»ÖÃ row col £º");
-//		scanf("%d %d", &row, &col);
-//		if ( row<0||row >= MAX_row ||col<0|| col >= MAX_col) {
-//			printf("ÄúÏÂµ½ÆåÅÌÍâÃæÈ¥ÁË\n");
-//			continue;
-//		}
-//		if (c[row][col] != ' ') {
-//			printf("ÄúÒªÏÂµÄÎ»ÖÃÒÑ¾­±»Õ¼Áì\n");
-//			continue;
-//		}
-//		c[row][col] = '*';
-//		break;
-//	}
-//}
-//void computerC(char c[MAX_row][MAX_col]) {
-//	srand((unsigned int)time(0));
-//	while (1) {
-//		int row = rand() % MAX_row;
-//		int col = rand() % MAX_col;
-//		if (c[row][col] != ' ') {
-//			continue;
-//		}
-//		c[row][col] = '#';
-//		break;
-//	}
-//}
-//
-//int isFull(char c[MAX_row][MAX_col]) {
-//	for (int row = 0; row < MAX_row; row++) {
-//		for (int col = 0; col < MAX_col; col++) {
-//			if (c[row][col] == ' ') {
-//				return 0;
-//			}
-//		}
-//	}
-//	return 1;
-//}
-//
-//char isWinner(char c[MAX_col][MAX_col]) {
-//	for (int row = 0; row < MAX_row; row++) {
-//		if (c[row][0]!=' '&& c[row][0] == c[row][1] && c[row][1] == c[row][2]) {
-//			return c[row][0];
-//		}
-//	}
-//	for (int col = 0; col < MAX_col; col++) {
-//		if (c[0][col]!=' '&& c[0][col] == c[1][col] && c[1][col]== c[2][col]) {
-//			return c[0][col];
-//		}
-//	}
-//	if (c[0][0] != ' ' && c[0][0] == c[1][1] && c[1][1] == c[2][2]) {
-//		return c[0][0];
-//	}
-//	if (c[0][2] != ' ' && c[0][2] == c[1][1] && c[1][1] == c[2][0]) {
-//		return c[0][2];
-//	}
-//	if (isFull(c) == 1) {
-//		return 'p';
-//	}
-//	return ' ';
-//}
-//
-//int main() {
-//	while(1) {
-//		//ÉèÖÃÓÎÏ·²Ëµ¥
-//		menu();
-//		int select = 0;
-//		printf("ÇëÊäÈëÄãµÄÑ¡Ôñ:");
-//		scanf("%d", &select);
-//		if(select==1){
-//			//´´½¨3 x 3µÄ×Ö·ûĞÍ¾ØÕó×÷ÎªÆåÅÌ,
-//			char chessBoard[MAX_row][MAX_col] = { 0 };
-//			//³õÊ¼»¯ÆåÅÌ,Ã¿Ò»¸öÎ»ÖÃÉèÖÃÎª¿Õ¸ñ
-//			init(chessBoard);
-//			char result = ' ';
-//			while (1) {
-//				
-//				//´òÓ¡ÆåÅÌ
-//				printC(chessBoard);
-//				//Íæ¼ÒÏÂÆå
-//				playC(chessBoard);
-//				//ÅĞ¶ÏÊ¤¸º
-//				result = isWinner(chessBoard);
-//				if (result != ' ') {
-//					break;
-//				}
-//				//µçÄÔÏÂÆå
-//				computerC(chessBoard);
-//				//ÅĞ¶ÏÊ¤¸º
-//				result = isWinner(chessBoard);
-//				if (result != ' ') {
-//					break;
-//				}
-//				//´òÓ¡Ö®Ç°ÇåÆÁ
-//				system("cls");
-//			}
-//			system("cls");
-//			printC(chessBoard);
-//			if (result == '*') {
-//				printf("Äã»ñÊ¤ÁË£¡\n\n");
-//			}
-//			else if (result == '#') {
-//				printf("Äã²Ò°ÜÁË£¡\n\n");
-//			}
-//			else {
-//				printf("ÄãºÍµçÄÔÎ´·Ö³öÊ¤¸º£¡\n\n");
-//			}
-//			Sleep(1500);
-//			//system("cls");
-//		}
-//		if (select == 0) {
-//			printf("ÒÑÍË³öÓÎÏ·£¡»¶Ó­ÏÂ´ÎÓÎÏ·¡£\n");
-//			break;
-//		}
-//	}
-//
-//	system("pause");
-//	return 0;
-//}
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<Windows.h>
+//ä¸‰å­æ£‹æ¸¸æˆ
+#define MAX_row 3
+#define MAX_col 3
+
+void menu() {
+	printf("*********************************************\n");
+	printf("**************      æ¸¸æˆèœå•      ***********\n");
+	printf("**************  1.å¼€å§‹ä¸‰å­æ£‹æ¸¸æˆ  ***********\n");
+	printf("**************  0.é€€å‡ºæ¸¸æˆèœå•ï¼  ***********\n");
+	printf("*********************************************\n");
+}
+
+void init(char c[MAX_row][MAX_col]) {
+	for (int row = 0; row < MAX_row; row++) {
+		for (int col = 0; col < MAX_col; col++) {
+			c[row][col] = ' ';
+		}
+	}
+}
+
+void printC(char c[MAX_row][MAX_col]) {
+	printf("+---+---+---+\n");
+	for (int row = 0; row < MAX_row; row++) {
+		printf("| ");
+		for (int col = 0; col < MAX_col; col++) {
+			printf("%c | ", c[row][col]);
+		}
+		printf("\n+---+---+---+\n");
+	}
+}
+
+void playC(char c[MAX_row][MAX_col]) {
+	int row = 0;
+	int col = 0;
+	printf("è¯·ç©å®¶è½å­ä¸‹æ£‹\n");
+	while (1) {
+		printf("è¯·è¾“å…¥ä½ è¦ä¸‹çš„ä½ç½® row col ï¼š");
+		scanf("%d %d", &row, &col);
+		if ( row<0||row >= MAX_row ||col<0|| col >= MAX_col) {
+			printf("æ‚¨ä¸‹åˆ°æ£‹ç›˜å¤–é¢å»äº†\n");
+			continue;
+		}
+		if (c[row][col] != ' ') {
+			printf("æ‚¨è¦ä¸‹çš„ä½ç½®å·²ç»è¢«å é¢†\n");
+			continue;
+		}
+		c[row][col] = '*';
+		break;
+	}
+}
+void computerC(char c[MAX_row][MAX_col]) {
+	srand((unsigned int)time(0));
+	while (1) {
+		int row = rand() % MAX_row;
+		int col = rand() % MAX_col;
+		if (c[row][col] != ' ') {
+			continue;
+		}
+		c[row][col] = '#';
+		break;
+	}
+}
+
+int isFull(char c[MAX_row][MAX_col]) {
+	for (int row = 0; row < MAX_row; row++) {
+		for (int col = 0; col < MAX_col; col++) {
+			if (c[row][col] == ' ') {
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+char isWinner(char c[MAX_col][MAX_col]) {
+	for (int row = 0; row < MAX_row; row++) {
+		if (c[row][0]!=' '&& c[row][0] == c[row][1] && c[row][1] == c[row][2]) {
+			return c[row][0];
+		}
+	}
+	for (int col = 0; col < MAX_col; col++) {
+		if (c[0][col]!=' '&& c[0][col] == c[1][col] && c[1][col]== c[2][col]) {
+			return c[0][col];
+		}
+	}
+	if (c[0][0] != ' ' && c[0][0] == c[1][1] && c[1][1] == c[2][2]) {
+		return c[0][0];
+	}
+	if (c[0][2] != ' ' && c[0][2] == c[1][1] && c[1][1] == c[2][0]) {
+		return c[0][2];
+	}
+	if (isFull(c) == 1) {
+		return 'p';
+	}
+	return ' ';
+}
+
+int main() {
+	while(1) {
+		//è®¾ç½®æ¸¸æˆèœå•
+		menu();
+		int select = 0;
+		printf("è¯·è¾“å…¥ä½ çš„é€‰æ‹©:");
+		scanf("%d", &select);
+		if(select==1){
+			//åˆ›å»º3 x 3çš„å­—ç¬¦å‹çŸ©é˜µä½œä¸ºæ£‹ç›˜,
+			char chessBoard[MAX_row][MAX_col] = { 0 };
+			//åˆå§‹åŒ–æ£‹ç›˜,æ¯ä¸€ä¸ªä½ç½®è®¾ç½®ä¸ºç©ºæ ¼
+			init(chessBoard);
+			char result = ' ';
+			while (1) {
+				
+				//æ‰“å°æ£‹ç›˜
+				printC(chessBoard);
+				//ç©å®¶ä¸‹æ£‹
+				playC(chessBoard);
+				//åˆ¤æ–­èƒœè´Ÿ
+				result = isWinner(chessBoard);
+				if (result != ' ') {
+					break;
+				}
+				//ç”µè„‘ä¸‹æ£‹
+				computerC(chessBoard);
+				//åˆ¤æ–­èƒœè´Ÿ
+				result = isWinner(chessBoard);
+				if (result != ' ') {
+					break;
+				}
+				//æ‰“å°ä¹‹å‰æ¸…å±
+				system("cls");
+			}
+			system("cls");
+			printC(chessBoard);
+			if (result == '*') {
+				printf("ä½ è·èƒœäº†ï¼\n\n");
+			}
+			else if (result == '#') {
+				printf("ä½ æƒ¨è´¥äº†ï¼\n\n");
+			}
+			else {
+				printf("ä½ å’Œç”µè„‘æœªåˆ†å‡ºèƒœè´Ÿï¼\n\n");
+			}
+			Sleep(1500);
+			//system("cls");
+		}
+		if (select == 0) {
+			printf("å·²é€€å‡ºæ¸¸æˆï¼æ¬¢è¿ä¸‹æ¬¡æ¸¸æˆã€‚\n");
+			break;
+		}
+	}
+
+	system("pause");
+	return 0;
+}
