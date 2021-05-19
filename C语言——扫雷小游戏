@@ -1,0 +1,119 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<time.h>
+#define MAX_ROW 9
+#define MAX_COL 9
+#define MINE_NUM 10
+//扫雷游戏
+
+
+void init(char showMap[MAX_ROW][MAX_COL], char mineMap[MAX_ROW][MAX_COL]) {
+	//初始化:showMap全设置为 '#',mineMap设置为'0'
+	memset(showMap, '#', MAX_ROW * MAX_COL);
+	memset(mineMap, '0', MAX_ROW * MAX_COL);
+	//并且给mineMap地图随机设置10个雷的位置,1为有,0表示没雷
+	srand((unsigned int)time(0));
+	int mine_NUM = 0;
+	while (mine_NUM < MINE_NUM) {
+		int row = rand() % MAX_ROW;
+		int col = rand() % MAX_COL;
+		if (mineMap[row][col] == '1') {
+			continue;
+		}
+		mineMap[row][col] = '1';
+		mine_NUM++;
+	}
+}
+
+//打印输出函数
+void print(char Map[MAX_ROW][MAX_COL]) {
+	printf("  0   1   2   3   4   5   6   7    8  ");
+	printf("\n-------------------------------------\n");
+	for (int row = 0; row < MAX_ROW; row++){
+		printf("|");
+		for (int col = 0; col < MAX_COL; col++) {
+			printf(" %c |",Map[row][col]);
+		}
+		printf(" %d\n", row);
+		printf("-------------------------------------\n");
+	}
+}
+
+//更新地图函数:根据输入的坐标,实现该位置从showMap到mineMap的转变
+void updateMap(char showMap[MAX_ROW][MAX_COL], char mineMap[MAX_ROW][MAX_COL], int row, int col) {
+	int NUM = 0;
+	int r = 0;
+	int c = 0;
+	for (r=row - 1; r < row + 1; r++) {
+		for (c= col - 1; c < col + 1; c++) {
+			if (r == row && c == col) {
+				continue;
+			}
+			if (c<0 || c>MAX_COL || r<0 || r>MAX_ROW) {
+				continue;
+			}
+			if (mineMap[r][c] == '0') {
+				continue;
+			}
+			if (mineMap[r][c] == '1') {
+				NUM++;
+			}
+		}
+	}
+	showMap[row][col] = '0' + NUM;
+}
+//判断胜利:计算为翻开的状态坐标个数=MINE_NUM,则判定胜利
+int isWin(char showMap[MAX_ROW][MAX_COL]) {
+	int count = 0;
+	for (int row = 0; row < MAX_ROW; row++) {
+		for (int col = 0; col < MAX_COL; col++) {
+			if (showMap[row][col] == '#') {
+				count++;
+			}
+		}
+	}
+	return count;
+}
+
+int main() {
+	//创建两种状态图,showMap表示未翻开状态,mineMap表示已翻开状态
+	char showMap[MAX_ROW][MAX_COL] = { 0 };
+	char mineMap[MAX_ROW][MAX_COL] = { 0 };
+	//初始化两种显示图
+	init(showMap, mineMap); 
+	printf("开始扫雷游戏:\n");
+	while (1) {
+		system("cls");
+		//打印地图
+		print(showMap);
+		//print(mineMap);
+		//玩家进行扫雷
+		int row = 0;
+		int col = 0;
+		printf("请输入需要清扫位置(0~8) row col:");
+		scanf("%d %d" ,&row, &col);
+		if (row<0 || row>MAX_ROW || col<0 || col>MAX_COL) {
+			printf("您输入的位置不合法!\n");
+		}
+		if (showMap[row][col] != '#') {
+			printf("该位置已翻开!\n");
+		}
+		//判断是否踩雷
+		if (mineMap[row][col] == '1') {
+			printf("你踩到雷了! 游戏结束!\n");
+			break;
+		}
+		//更新地图
+		updateMap(showMap, mineMap, row, col); 
+		int result = isWin(showMap);
+		if (result == MINE_NUM) {
+			printf("你获胜了,没有踩到雷!\n");
+			break;
+		}
+	}
+	printf("游戏结束,欢迎下次继续!\n");
+	system("pause");
+	return 0;
+}
