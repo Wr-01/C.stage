@@ -1,0 +1,186 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+
+////函数 值传递
+//void swap01(int x, int y) {
+//	int temp = x;
+//	x = y;
+//	y = temp;
+//}
+////函数 地址传递(定义一个指针指向实参地址作为函数形参)
+//void swap02(int* x, int* y) {
+//	int temp = *x;
+//	*x = *y;
+//	*y = temp;
+//}
+
+////递归调用计算n的阶乘
+//long factorial(int n) {
+//	long result = 0;
+//	if (n == 0 || n == 1) {
+//		return 1;
+//	}
+//	else {
+//		result = factorial(n - 1)*n;
+//	}
+//	return result;
+//}
+
+////递归函数：实现对无符号整数从个位到最高位的依次输出
+//void printNum(int num) {
+//	if (num > 9)
+//	{
+//		printNum(num / 10);
+//	}
+//	printf("%d ", num % 10);
+//}
+
+//判断一个数是否是素数
+//int Is_prime(int num) {
+//	for (int i = 2; i <num; i++) {
+//		if (num==1 ||num==0|| num>0&&num % i == 0) {
+//			return 0;
+//		}
+//	}
+//	return 1;
+//	//if (i==num) {
+//	//	printf("这个数是素数。\n");
+//	//}
+//	//else {
+//	//	printf("这个数不是素数。\n");
+//	//}
+//}
+
+////判断一年是否为闰年
+//void Is_leap(int year) {
+//	int leap = 0;
+//	if (year % 100 == 0) {
+//		if (year % 400 == 0) {
+//			leap = 1;
+//		}
+//		else {
+//			leap == 0;
+//		}
+//	}
+//	else {
+//		if (year % 4 == 0) {
+//			leap = 2;
+//		}
+//	}
+//	if (leap == 1) {
+//		printf("%d 是世纪闰年！\n",year);
+//	}
+//	else if (leap == 2) {
+//		printf("%d 是普通闰年！\n", year);
+//	}
+//	else {
+//		printf("%d 不是闰年！\n", year);
+//	}
+//}
+
+////打印乘法口诀表的函数
+//void mult_table(int num) {
+//	for (int i = 1; i <= num; i++) {
+//		for (int j = 1; j <= i; j++) {
+//			printf(" %dx%d = %d\t", j, i, i * j);
+//		}
+//		printf("\n");
+//	}
+//}
+
+////设置一个递归函数，实现打印一个数的每一位
+//void print_num(unsigned int num) {
+//	if (num > 9) {
+//		print_num(num / 10);
+//	}
+//	printf("%d ", num % 10);
+//}
+
+//int num = 0;
+////写一个函数，每调用一次这个函数，就会将num的值增加1。
+//void func(int *num) {
+//	*num +=1;
+//	printf("第%d次调用该函数\n",*num);
+//}
+
+int myStrlen(char str[]) {
+	// 从字符串开头开始, 依次往后找, \0
+	// 每次遇到一个字符, 如果不是 \0, 就 count++
+	// 遇到 \0 就循环结束, 返回 count 即可
+	int count = 0;
+	while (str[count] != '\0') {
+		count++;
+	}
+	return count;
+}
+
+// 如果不让创建局部变量, 或者不让使用循环, 就可以考虑下递归~
+int myStrlen2(char str[]) {
+	if (str[0] == '\0') {
+		return 0;
+	}
+	return 1 + myStrlen2(str + 1);
+}
+
+int main() {
+
+	char s[] = "hello C!";
+	printf("%d\n",myStrlen(s));
+	printf("%d\n",myStrlen2(s));
+
+
+	//func(&num);
+	//func(&num);
+	//printf("num = %d\n",num);
+
+	//printf("请输入一个整数：");
+	//int num = 0;
+	//scanf("%d", &num);
+	//print_num(num);
+
+	//printf("请输入一个整数：");
+	//int num = 0;
+	//scanf("%d", &num);
+	//mult_table(num);
+
+	//printf("请输入一个公元纪年年份：");
+	//int year = 0;
+	//scanf("%d", &year);
+	//Is_leap(year);
+
+	//printf("请输入一个整数：");
+	//int num = 0;
+	//scanf("%d", &num);
+	//for (int i = 100; i < 200; i++) {
+	//	int ret = Is_prime(i);
+	//	if (ret == 1) {
+	//		printf("%d ", i);
+	//	}
+	//}
+
+
+	//int num = 1234;
+	//printNum(num);
+
+	//int n = 0;
+	//printf("请输入一个整数：\n");
+	//scanf("%d", &n);
+	//printf("%d的阶乘为：%d\n",n,factorial(n));
+
+	//char arr[] = { "hello " };
+	//strcat(arr, "bit");  //给arr字符串后面加"bit"，生成新的arr字符串
+	//printf("%s\n", arr);
+	//int ret = strlen(arr);
+	//printf("新的字符串的长度为：%d\n",ret);
+
+	//int a = 1;
+	//int b = 2;
+	//swap01(a, b);
+	//printf("a=%d,b=%d\n", a, b);
+	//swap02(&a, &b);
+	//printf("a=%d,b=%d\n", a, b);
+
+	system("pause");
+	return 0;
+}
