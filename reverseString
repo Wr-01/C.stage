@@ -1,0 +1,91 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+void reverseW(char str[], int len) {
+	char temp[100]="0";
+	int left = 0;
+	int count = 0;
+	for (int i = len-1; i >= 0; i--) {
+		if (str[i] == ' ') {
+			int right = i + 1;
+			int size = count;
+			while (left < size) {
+				temp[left] = str[right];
+				left++;
+				right++;
+			}
+			temp[left] =str[i];
+			left++;
+			count++;
+		}
+		else {
+			count++;
+			if (count == len) {
+				int init = 0;
+				while (left<len){
+					temp[left] = str[init];
+					init++;
+					left++;
+				}
+			}
+		}
+	}
+	for (int j = 0; j < len; j++) {
+		str[j] = temp[j];
+	}
+
+}
+
+//void reverse(char* start, char* end)
+//{
+//	while (start < end)
+//	{
+//		char temp = *start;
+//		*start = *end;
+//		*end = temp;
+//
+//		start++;
+//		end--;
+//	}
+//}
+
+
+int main() {
+
+	char str[100];// 注意不能使用scanf，scanf遇到空格，一次输入接收就结束了
+	gets(str);    //获取字符串
+	int len = strlen(str);
+	//printf("%d", len);
+	reverseW(str, len);
+	printf("%s\n", str);
+
+	//char input[100];
+	//// 注意不能使用scanf，scanf遇到空格，一次输入接收就结束了
+	//gets(input);
+
+	//// 翻转整个句子
+	//reverse(input, input + strlen(input) - 1);
+
+	//// 翻转单词
+	//char* start = input;
+	//while (*start)
+	//{
+	//	char* end = start;
+	//	while (*end != ' ' && *end)
+	//		end++;
+
+	//	reverse(start, end - 1);
+
+	//	if (*end)
+	//		start = end + 1;
+	//	else
+	//		start = end;
+	//}
+
+	//printf("%s", input);
+
+	system("pause");
+	return 0;
+}
