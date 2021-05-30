@@ -1,0 +1,43 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+void reverse(char* str, int size) {
+	char* left = str;
+	char* right = str + size - 1;
+	while (left < right) {
+		char temp =*left;
+		*left = *right;
+		*right = temp;
+		left++;
+		right--;
+	}
+}
+
+void reverseWord(char* str) {
+	//先整个字符串逆序一下
+	reverse(str, strlen(str));
+	char* start = str;
+	while (*start != '\0') {
+		char *end = start;
+		while (*end != ' ' && *end != '\0') {
+			end++;
+		}
+		reverse(start, end - start); //每个单词作为一个字符串传入进行逆序
+		if (*end == '\0') {
+			break;
+		}
+		else {
+			start = end + 1;
+		}
+	}
+}
+
+int main() {
+	char str[100] = { 0 };
+	gets(str);
+	reverseWord(&str);
+	printf("%s\n", str);
+
+	system("pause");
+	return 0;
+}
