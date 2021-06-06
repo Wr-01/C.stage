@@ -1,0 +1,290 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+//void test01(int arr[]) {
+//	printf("01well\n");
+//}
+//void test02(int arr[2]) {
+//	printf("02well\n");
+//}
+//void test03(int* arr) {
+//	printf("03well\n");
+//}
+//void test04(int* arr[2]) {
+//	printf("04well\n");
+//}
+//void test05(int** arr) {
+//	printf("05well\n");
+//}
+
+//void test01(int arr[2][3]) {
+//	printf("01well\n");
+//}
+//void test02(int arr[][3]) {
+//	printf("02well\n");
+//}
+//void test03(int (*arr)[3]) {
+//	printf("03well\n");
+//}
+//void test04(int (*arr)[2]) {
+//	printf("04well\n");
+//}
+//void test05(int* arr) { 
+//	printf("05well\n");
+//}
+//void test06(int** arr) { //形参int** 期望的实参是 int * [3]
+//	printf("06well\n");
+//}
+
+//void bubbleSort(int arr[], int len) {
+//	for (int i = 0; i < len; i++) {
+//		for (int j = 0; j = len - i - 1; j++) {
+//			if (arr[j] > arr[j + 1]) {
+//				int temp = arr[j];
+//				arr[j] = arr[j + 1];
+//				arr[i + 1] = temp;
+//			}
+//		}
+//	}
+//}
+//
+
+
+//void print(int arr[], int len) {
+//	for (int i = 0; i < len; i++) {
+//		printf("%d ", arr[i]);
+//	}
+//	printf("\n");
+//}
+//typedef int(*judge)(int a, int b);
+//void bubble(int arr[], int len,judge sort) {
+//	for (int bound = 0; bound < len; bound++) {
+//		for (int cur = len - 1; cur > bound; cur--) {
+//			if (sort(arr[cur-1],arr[cur])!=0) {
+//				int temp = arr[cur];
+//				arr[cur] = arr[cur - 1];
+//				arr[cur - 1] = temp;
+//			}
+//		}
+//	}
+//}
+//int ascending(int a, int b) { //定义升序排序规则
+//	return a > b ? 1 : 0;
+//}
+//int descending(int a, int b) { //定义降序排序规则
+//	return a < b ? 1 : 0;
+//}
+
+struct Test
+{
+	int Num;
+	char* pcName;
+	short sDate;
+	char cha[2];
+	short sBa[4];
+}*p;
+
+int main() {
+
+	//一维数组
+	//int a[] = { 1,2,3,4 };
+	//printf("%d\n", sizeof(a)); //16 数组中有4个整型Int类型的元素；故整个数组占内存大小为4x4为16 个 字节
+	//printf("%d\n", sizeof(a + 0)); //4 数组名参与运算时会隐式转换为指向首元素（地址）的指针；再加减操作时指针移动的字节数；移动完仍是指针Int* 类型；故占4个 字节
+	//printf("%d\n", sizeof(*a)); //4 数组名隐式转化为指针 int* ，在进行解引用成 Int 类型，占内存大小为4个 字节
+	//printf("%d\n", sizeof(a + 1)); //4 数组名参与运算转化为指针，在加减仍为int* 类型 故占4个字节（在32位操作系统下，不管什么类型指针都占4个字节的内存空间
+	//printf("%d\n", sizeof(a[1])); //4 表示数组第二个元素所占内存大小，类型位int；故占4个字节
+	//printf("%d\n", sizeof(&a)); //4 &数组名——表示一个指向int型数组的指针（返回数组的地址）；int[4]数组->int(*)[4]数组指针；故占4个字节
+	//printf("%d\n", sizeof(*&a)); //16 &a:int(*)[4]->再解引用得到int[4];整个数组占内存大小位4x4=16
+	//printf("%d\n", sizeof(&*a)); //4 *a:inta[0]->加& 得到一个指针指向第一个元素 * a[0]，故占4个字节
+	//printf("%d\n", sizeof(&a + 1)); //4 &a:int(*)[4]->再加减操作仍为指针类型，故占四个字节
+	//printf("%d\n", sizeof(&a[0] + 1)); //4 &a[0]:指向第一个元素指针 -> 再+1仍为指针类型，故占4个字节
+	
+	//字符数组
+	//char a[] = { 'a','b','c','d','e','f' };
+	//printf("%d\n", sizeof(a)); //6 数组a中 6 个元素都为char 类型
+	//printf("%d\n", sizeof(a + 0)); //4 类型为char *
+	//printf("%d\n", sizeof(*a)); //1 a转化char*类型->*解引用为char类型
+	//printf("%d\n", sizeof(a[1])); //1 求数组第二个元素内存大小，为char型
+	//printf("%d\n", sizeof(&a)); //4 &a：char(*)[6]指针类型
+	//printf("%d\n", sizeof(&a+1)); //4 &a:char(*)[6] 再+1->指针类型
+	//printf("%d\n", sizeof(&a[0]+1)); //4 &a[0]:char * 再+1->仍为指针
+	//printf("%d\n", sizeof(*&a)); //6 &a:char(*)[6] 再*解引用->为char[6]
+	//printf("%d\n", sizeof(&*a)); //4 *a:char -> &*a:char *指针类型
+	//printf("%d\n", strlen(a)); //不确定值 因为strlen函数结束标志是遇到\0结束计算，不确定遍历完数组元素之后往后哪一个位置为0/\0;
+	//printf("%d\n", strlen(a + 0)); //不确定值 同上传入指针进行遍历计算遇到\0结束
+	//printf("%d\n", strlen(*a)); //未定义行为 *a为char类型 strlen参数为 const char * 类型 
+	//printf("%d\n", strlen(a[1])); //未定义行为 同上
+	//printf("%d\n", strlen(&a)); //未定义行为 &a:char(*)[6]类型 与strlen实参const char*类型不匹配
+	//printf("%d\n", strlen(&a + 1)); //未定义行为 &a+1 相当于数组指针跳过数组指向后一个字节 仍然是参数不匹配
+	//printf("%d\n", strlen(&a[0] + 1)); //&a[0]+1 -> 相当于传入一个指向 'b'的char *
+
+	//字符串
+	//char a[] = "abcdef";
+	//printf("%d\n", sizeof(a)); //7 字符串常量，默认结尾有\0，故char型数组a[7]
+	//printf("%d\n", sizeof(a + 0)); //4 char *
+	//printf("%d\n", sizeof(*a)); //1 a隐式转换为char * -> 再解引用为char
+	//printf("%d\n", sizeof(a[1])); //1 char
+	//printf("%d\n", sizeof(a[1]+1)); //4 a[1]:char -> 再+1 整型提升得到 int 
+	//printf("%d\n", sizeof(&a)); //4 &a:char(*)[7]
+	//printf("%d\n", sizeof(&a + 1)); //4 char(*)[7]+1 仍为指针类型
+	//printf("%d\n", sizeof(&a[0] + 1)); //4 char *
+	//printf("%d\n", sizeof(*&a)); //7 &a:char(*)[7] -> 再解引用 char[7]
+	//printf("%d\n", sizeof(&*a)); //4 *a:char * -> 再& 得到char * 
+	//printf("%d\n", sizeof(*&a + 1)); //4 *&a得到数组 +1 -> char *
+	//////printf("%d\n", sizeof(*&(a + 1))); //编译不过  a + 1 这个表达式不是左值, 没有在内存中创建空间, 不能 & 
+
+	// printf("%d\n", strlen(a));  //6 计算字符串“abcdef”长度
+	// printf("%d\n", strlen(a + 0));	//6 从 'a' 这个位置开始找 \0
+	// //printf("%d\n", strlen(*a));    //未定义行为  *a 得到了 char, strlen 形参是 const char* 
+	// //printf("%d\n", strlen(a[1]));	//未定义行为 
+	// printf("%d\n", strlen(&a));	//6  理论上来讲是不应该编译通过的. &a 得到了 char(*)[7] 这个类型, strlen 要求的是 const char* 类型, 此处在 C 中会触发隐式类型转换. 地址值不变, 相当于从 'a' 往后找 '\0'
+	// //printf("%d\n", strlen(&a + 1)); //未定义行为  &a + 1 导致指针跳过 整个数组, 也跳过了 \0
+	// printf("%d\n", strlen(&a[0] + 1));	//5  a[0] 'a' , 再取地址, 得到了 char*, 再 + 1, 指向了 'b' 
+
+	//字符串指针
+	//char* p = "abcdef";
+	//printf("%d\n", sizeof(p)); //4 p为char *类型
+	//printf("%d\n", sizeof(p + 1)); //4 仍为char *
+	//printf("%d\n", sizeof(*p));    //1 char
+	//printf("%d\n", sizeof(p[1]));  //1 p[0] -> char
+	//printf("%d\n", sizeof(&p));    //4 &p -> char **
+	//printf("%d\n", sizeof(&p + 1));//4 char ** +1成为 指针类型
+	//printf("%d\n", sizeof(&p[0] + 1));//4 char * +1 -> char *
+
+	// printf("%d\n", strlen(p));	//6 指针p指向字符串常量"abcdef"，计算字符长度
+	// printf("%d\n", strlen(p + 1));	//5 从第二个字符向后计算长度，截止到\0
+	// //printf("%d\n", strlen(*p));	//未定义行为 *p => char, strlen 要求的是 const char* 类型
+	// //printf("%d\n", strlen(&p));	//未定义行为 &p => char** 
+	// //printf("%d\n", strlen(&p + 1));//未定义行为 同上
+	// printf("%d\n", strlen(&p[0] + 1));	//5 
+
+	// 二维数组
+	//int a[3][4] = { 0 };
+	//printf("%d\n", sizeof(a)); //48 总的大小  3 * 4 * 4
+	//printf("%d\n", sizeof(a[0][0])); //4 a[0][0] => int
+	//printf("%d\n", sizeof(a[0]));	  //16  a[0] => int[4]
+	//printf("%d\n", sizeof(a[0] + 1));	//4  a[0] => int[4] 再 + 1, 就成了 int*
+	//printf("%d\n", sizeof( *(a[0] + 1) ) ); //4  a[0] => int[4], 再 + 1 得到 int*, 再解引用得到 int
+	//printf("%d\n", sizeof(a + 1));	    //4  a是 int[3][4] , + 1 就会隐式转成指针, int(*)[4]
+	//printf("%d\n", sizeof(*(a + 1)));  //16 *(a + 1) => a[1]  => int[4] 
+	//printf("%d\n", sizeof(&a[0] + 1));	//4  a[0] => int[4], 再来 &, 得到 int(*)[4], 再来一个 + 1 还是 int(*)[4]
+	//printf("%d\n", sizeof( *(&a[0] + 1) ));  //16  a[0] => int[4], 再 &, 得到 int(*)[4], 再+1, 类型还是 int(*)[4], 再来 *, int[4]
+	//printf("%d\n", sizeof(*a));  //16 *a => a[0]-> int[4] 
+	////printf("%d\n", sizeof(a[10]));
+	////printf("%x\n", &a);
+	////printf("%x\n", &a +1);
+
+	//printf("%p\n", p + 0x1); //p指向结构体变量首地址(此处为0/null),+1 个字节 —> 指针跨过整个结构体（20字节）移动一位0->20
+	//printf("%p\n", (unsigned long)p + 0x1); //强制类型转换之后p变为数值的0;此处+1=1;
+	//printf("%p\n", (unsigned int*)p + 0x1); //强制类型转换将 结构体 *p 转换为int* p;指针p变量指向空间从20变为4；+1操作-跨过自身变量后移
+
+	//int a[4] = { 1, 2, 3, 4 };
+	//int* ptr1 = (int*)(&a + 1);
+	//int* ptr2 = (int*)((int)a + 1);
+	//printf("%x,%x", ptr1[-1], *ptr2);
+
+	//int a[3][2] = { (0, 1), (2, 3), (4, 5) };
+	//int* p;
+	//p = a[0];
+	//printf("%d", p[0]);
+
+	//int a[5][5];
+	//int(*p)[4];
+	//p = a;
+	//printf("a_ptr=%#p,p-ptr=%#p\n", &a[4][3], &p[4][3]);
+	//printf("%p,%d\n", &p[4][3] - &a[4][3], &p[4][3] - &a[4][3]);
+
+
+	//int a[5] = { 1, 2, 3, 4, 5 };
+	//int* ptr = (int*)(&a + 1);
+	//printf("%d,%d", *(a + 1), *(ptr - 1));
+
+	//int aa[2][5] = { 1,2,3,4,5,6,7,8,9,10 };
+	//int* ptr1 = (int*)(&aa + 1);
+	//int* ptr2 = (int*)(*(aa + 1));
+	//printf("%d,%d", *(ptr1 - 1), *(ptr2 - 1));
+
+
+	//int arr1[] = { 3,4,8,1,7,2 };
+	//int arr2[] = { 2,5,7,3,1,4,6 };
+	//int len1 = sizeof(arr1) / sizeof(arr1[0]);
+	//int len2 = sizeof(arr2) / sizeof(arr2[0]);
+	//bubble(arr1, len1,ascending);
+	//print(arr1, len1);
+	//bubble(arr2, len2, descending);
+	//print(arr2, len2);
+
+	//int arr[2][3] = { 0 };
+	//test01(arr);
+	//test02(arr);
+	//test03(arr);
+	//test04(arr);
+	//test05(arr);
+	//test06(arr);
+
+	//int arr[] = { 1,2 };
+	//int* arr1[] = { 0 }; //指针数组
+	//test01(arr);
+	//test02(arr);
+	//test03(arr);
+	//test04(arr1);
+	//test05(arr1);
+
+	//int arr[] = { 1,2 };
+	//printf("%p\n", arr);
+	//printf("%p\n", arr + 1);
+	//printf("%p\n", &arr);
+	//printf("%p\n", &arr + 1);
+
+	//int arr[] = { 1,2,3 };
+	//int* p = & arr;
+	//	for (int i = 0; i <3; i++) {
+	//		printf("%d ", *(p + i));
+	//	}
+
+	//int n = 1;
+	//int* p = &n;
+	//char s = 1;
+	//char* ps = &s;
+	//printf("%p\n", &n);
+	//printf("%p\n", p + 1);
+	//printf("%p\n", &s);
+	//printf("%p\n", ps);
+	//printf("%p\n", ps + 1);
+	//int arr[] = { 1,2 };
+	//printf("%p\n", arr);
+	//printf("%p\n", &arr[0]);
+	//int len = sizeof(arr) / sizeof(arr[0]);
+	//int* p = arr;
+	//for (int i = 0; i < len; i++) {
+	//	printf("%d ", *(p + i));
+	//}
+	//char str[] = "hello";
+	//char arr[] = { 'h','e','l','l','o' };
+	//printf("%d\n", sizeof(str));
+	//printf("%d\n", strlen(str));
+	//printf("%d\n", strlen(arr));
+
+	system("pause");
+	return 0;
+}
+
+//int main() {
+//	int soda = 0;   //实际喝的饮料总瓶数
+//	int bottle = 0;  //初始空瓶数
+//	printf("请输入初始空瓶数：");
+//	scanf("%d", &bottle);
+//	soda = bottle;  //初始喝的饮料
+//	if (bottle == 1) {
+//		printf("总共喝了1瓶饮料！\n");
+//	}
+//	while (bottle>1) {
+//		soda += bottle / 2; //每喝完可以换的饮料瓶数
+//		bottle = bottle / 2 + bottle % 2;
+//	}
+//	printf("总共可以喝 %d 瓶饮料！\n",soda);
+//	system("pause");
+//	return 0;
+//}
