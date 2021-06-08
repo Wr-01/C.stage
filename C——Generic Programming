@@ -1,0 +1,179 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct Student {
+	int id;
+	char name[100];
+	int score;
+}Student;
+void print1(int a[], int len) {
+	for (int i = 0; i < len; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+void print2(Student a[], int len) {
+	for (int i = 0; i < len; i++) {
+		printf("%d %s %d\t", a[i].id,a[i].name ,a[i].score );
+		printf("\n");
+	}
+}
+
+typedef int(*Cmp)(void* a, void* b);
+void bubbleSort(void* a, int len, int unitLen, Cmp judge) {
+	for (int bound = 0; bound < len; bound++) {
+		for (int cur = len - 1; cur > bound; cur--) {
+			char* p = (char*)a;
+			char* p1 = p + (cur - 1)*unitLen;
+			char* p2 = p + cur * unitLen;
+			if (judge(p1, p2) == 1) {
+				void* temp[1024] = { 0 };
+				memcpy(temp, p1, unitLen); 
+				memcpy(p1, p2, unitLen);
+				memcpy(p2, temp, unitLen);
+			}
+		}
+	}
+}
+按照int型数据进行升序排列
+int intAsce(void* a, void* b) {
+	int* x = (int*)a;
+	int* y = (int*)b;
+	return *x > *y ? 1 : 0;
+}
+按照结构体数据进行降序排列
+int strDesc(void* a, void* b) {
+	Student* x = (Student*)a;
+	Student* y = (Student*)b;
+	return  x->id < y->id ? 1 : 0;
+}
+
+int main() {
+	int arr[] = { 2,4,5,3,6,1 };
+	int len1 = sizeof(arr) / sizeof(arr[0]);
+	bubbleSort(arr, len1, sizeof(arr[0]), intAsce);
+	print1(arr, len1);
+	Student stu[] = {
+		{2,"张三",68},
+		{1,"李四",87},
+		{4,"王五",90},
+		{3,"赵六",79}
+	};
+	int len2 = sizeof(stu) / sizeof(stu[0]);
+	bubbleSort(stu, len2, sizeof(stu[0]), strDesc);
+	print2(stu, len2);
+
+	system("pause");
+	return 0;
+}
+
+typedef struct Student {
+	int id;
+	char name[100];
+	int score;
+}Student;
+
+void print(Student a[], int len) {
+	for (int i = 0; i < len; i++) {
+		printf("%d %s %d\t", a[i].id,a[i].name ,a[i].score );
+		printf("\n");
+	}
+}
+//结构体传参无脑传指针
+typedef int(*Stu)(Student* x, Student* y);
+
+void bubbleSort(Student a[], int len,Stu stu) {
+	for (int bound = 0; bound < len; bound++) {
+		for (int cur = len - 1; cur > bound; cur--) {
+			if (stu(&a[cur - 1], &a[cur]) == 1) {
+				Student temp = a[cur - 1];
+				a[cur - 1] = a[cur];
+				a[cur] = temp;
+			}
+		}
+	}
+}
+//按照id排列设置回调函数
+int idDesc(Student* a, Student* b) { //降序
+	return a->id < b->id ? 1 : 0;
+}
+int idAsce(Student* a, Student* b) { //升序
+	return a->id > b->id ? 1 : 0;
+}
+//按照分数设置回调函数
+int scoreDesc(Student* a, Student* b) {
+	return a->score < b->score ? 1 : 0;
+}
+int scoreAscec(Student* a, Student* b) {
+	return a->score > b->score ? 1 : 0;
+}
+//按照成绩升序排，如果成绩相同按照id 升序排
+int scorAsce_idAsce(Student* a, Student* b) {
+	if (a->score == b->score) {
+		return a->id > b->id ? 1 : 0;
+	}
+	return a->score > b->score ? 1 : 0;
+}
+int main() {
+	Student arr[] = {
+		{1,"张三",78},
+		{4,"王五",89},
+		{2,"赵六",97},
+		{3,"李四",78}
+	};
+	int len = sizeof(arr) / sizeof(arr[0]);
+	printf("成绩升序排列，如果成绩相同按照id 升序排列：\n");
+	bubbleSort(arr, len, scorAsce_idAsce);
+	print(arr, len);
+	printf("按照id号升序排列：\n");
+	bubbleSort(arr, len,idAsce);
+	print(arr, len);
+	system("pause");
+	return 0;
+}
+
+void print(int a[], int len) {
+	for (int i = 0; i < len; i++) {
+		printf("%d ", a[i]);
+	}
+	printf("\n");
+}
+typedef int(*judge)(int a, int b);
+void bubbleSort(int* a, int len,judge j) {
+	for (int bound = 0; bound < len; bound++) {
+		for (int cur = len - 1; cur > bound; cur--) {
+			if (j(a[cur - 1],a[cur])==1) {
+				int temp = a[cur - 1];
+				a[cur - 1] = a[cur];
+				a[cur] = temp;
+			}
+		}
+	}
+}
+int asceding(int a, int b) {
+	return a > b ? 1 : 0;
+}
+int descending(int a, int b) {
+	return a < b ? 1 : 0;
+}
+int main() {
+	int arr[] = { 2,3,6,1,4,7,9,8,5 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	bubbleSort(arr,len,asceding);
+	print(arr, len);
+	bubbleSort(arr, len, descending);
+	print(arr, len);
+	system("pause");
+	return 0;
+}
+
+void test() {
+	printf("funcPointer\n");
+}
+int main() {
+	printf("%p\n", test);
+	printf("%p\n", &test);
+	system("pause");
+	return 0;
+}
