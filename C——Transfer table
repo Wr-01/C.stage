@@ -1,0 +1,73 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<stdlib.h>
+
+//实现计算器功能
+int add(int a, int b) {
+	return a + b;
+}
+int sub(int a, int b) {
+	return a - b;
+}
+int mult(int a, int b) {
+	return a * b;
+}
+int division(int a, int b) {
+	return a / b;
+}
+
+//定义一个函数指针（两个整型参数）返回值也为整型
+typedef (*func)(int, int);
+
+int main() {
+	func arr[]={
+		NULL,
+		add,
+		sub,
+		mult,
+		division
+	};
+	int a = 0;
+	int b = 0;
+	printf("欢迎使用加减乘除计算器，请输入两个整数：");
+	scanf("%d %d", &a, &b);
+	int choice = 0;
+	printf("请选择功能：1.加法；2.减法；3.乘法；4.除法\n");
+	scanf("%d",& choice);
+	int ret = arr[choice](a, b);
+	printf("结果为：%d\n", ret);
+	system("pause");
+	return 0;
+}
+
+//int main() {
+//	int a = 0;
+//	int b = 0;
+//	int ret = 0;
+//	printf("欢迎使用加减乘除计算器，请输入两个整数：");
+//	scanf("%d %d", &a, &b);
+//	int choice = 0;
+//again:
+//	printf("请选择功能：1.加法；2.减法；3.乘法；4.除法\n");
+//	scanf("%d", & choice);
+//	if (choice == 1) {
+//		ret = add(a, b);
+//	}
+//	else if (choice == 2) {
+//		ret = sub(a, b);
+//	}
+//	else if (choice == 3) {
+//		ret = mult(a, b);
+//	}
+//	else if (choice == 4) {
+//		ret = division(a, b);
+//	}
+//	else{
+//		printf("输入错误！！！\n");
+//		goto again;
+//	}
+//	printf("结果为：%d\n", ret);
+//
+//	system("pause");
+//	return 0;
+//}
