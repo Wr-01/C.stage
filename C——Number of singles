@@ -1,0 +1,164 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>//包含文件操作
+#include<stdlib.h>
+#include<string.h>//包含strerror函数解释错误码含义
+//#include<errno.h>//包含错误码
+
+//一个数组中只有两个数字是出现一次，其他所有数字都出现了两次。编写一个函数找出这两个只出现一次的数字。
+void findNum(int *a, int len) {
+	int i = 0;
+	int j = 0;
+	while(i<len) {
+		for (j = i+1; j < len; j++) {
+			if (a[i]==a[j]) {
+				int temp = a[i + 1];
+				a[i + 1] = a[j];
+				a[j] = temp;
+				i = i + 2;
+				break;
+			}
+		}
+		if (j == len) {
+			i++;
+		}
+	}
+	int n = 0;
+	while ( n < len) {
+		if (a[n] == a[n + 1]) {
+			n =n+ 2;
+			continue;
+		}
+		else {
+			printf("%d ", a[n]);
+			n++;
+		}
+	}
+	printf("\n");
+}
+
+
+int main() {
+	int arr[] = { 1,2,4,1,6,5,7,5,7,4 };
+	int len = sizeof(arr) / sizeof(arr[0]);
+	printf("数组中的两个单身数为：");
+	findNum(arr, len);
+
+	system("pause");
+	return 0;
+}
+
+
+//文件 核心操作：打开fopen，关闭fclose,读文件fread,写文件fwrite
+
+////atoi函数实现将字符串转换为整数
+//int atoiMy(const char* str) {
+//	int size = 0;
+//	int flag = 1;
+//	int num = 0;
+//	while (str[size] != '\0') {
+//		if (str[size] == '-') {
+//			flag = -1;
+//		}
+//		if (str[size] >= '0' && str[size] <= '9') {
+//			num = num * 10 + str[size]-'0';
+//		}
+//		size++;
+//	}
+//	return num * flag;
+
+	//int size = 0;
+	//while (str[size] != '\0') {
+	//	size++;
+	//}
+	//int ret = 0;
+
+	//if (size <= 0)
+	//	return 0;
+
+	////若为负数先让flag为-1，最后的结果乘以flag:-1 \
+	//  若为正数，就不用做什么，最后的结果乘以flag:1
+	//int flag = 1;
+	//if (str[0] == '-')
+	//	flag = -1;
+
+	////那么第0位是+或-，则直接从第1位开始判断
+	//int i = 0;
+	//if (str[0] == '+' || str[0] == '-')
+	//	i++;
+
+	//for (; i < size; ++i)
+	//{
+	//	if (!(str[i] >= '0' && str[i] <= '9'))
+	//		return 0;
+
+	//	ret = ret * 10 + str[i] - '0';
+	//}
+	//return ret*flag;
+//}
+
+
+//int main() {
+
+	//int i;
+	//char buffer[256]="73";
+	//i = atoiMy(buffer);
+	//printf("The value entered is %d.\n", i);
+
+	////格式化输入输出：sscanf从一个字符串中进行格式化读取（把字符串转化为整数）、sprintf把一个格式化的结果输出到字符串中（相反）
+	//char buffer[1024] = { 0 };
+	//sprintf(buffer, "num=%d", 100);
+	//printf("%s\n", buffer);
+
+	//char* str = "100";
+	//int num = 0;
+	//sscanf(str, "%d", &num);
+	//printf("num=%d\n", num);
+
+	//int num = 100;
+	//char buffer[1024] = { 0 };
+	//sprintf(buffer, "%d", num);
+	//printf("%s\n", buffer);
+
+
+	//FILE* f = fopen("D:/11.txt", "r");
+	////fscanf将文件中数据读取到内存变量中、fprintf将内存数据写入文件中
+	//int num = 5;
+	////fprintf(f, "%d\n", num);
+	//fscanf(f, "%d", &num);
+	//printf("num=%d\n", num);
+
+	////读文件
+	//FILE* f = fopen("D:/11.txt", "w");
+	//if (f == NULL) {
+	//	printf("打开文件失败! %s\n",strerror(errno));
+	//	perror("打开文件失败");//和上行功能相同
+	//	system("pause");
+	//	return 0;
+	//}
+	//printf("打开文件成功! %p\n", f);
+
+	////读取文件 fread
+	//char buffer[1024] = { 0 };
+	//size_t len = fread(buffer, 1, 20, f);//fread函数返回元素个数，参数1为文件起始位置，
+	//                                     //参数2为元素大小字节，参数3为读取元素个数，参数4为打开文件的当前流
+	//printf("%d\n", len);
+	//printf("%s\n", buffer);
+	//if (len < 20) {
+	//	perror("文件读取失败");
+	//}
+
+	////写文件 fwrite:把内存的数据写到磁盘上
+	//char buffer[] = "zxcvbnm";  //内存中创建一个字符串数据
+	//size_t len = fwrite(buffer, 1, strlen(buffer), f);//通过写入操作，将f文件内容以创建的内存数据改写到磁盘中
+	//printf("len = %d\n", len);
+
+	//关闭文件
+	//fclose(f);
+
+	//光打开文件，不进行及时关闭，会出现“文件资源泄露”——进程能打开的文件个数是有上限的，一直打开不关闭，后续会出现打开失败，
+	//导致程序不能正常工作。比内存泄露更严重。windows上默认进程最多打开512个文件，509表示用户打开文件之前，
+	//系统默认已经打开了三个文件（标准输入stdin对应键盘，默认输出stdout对应显示器，标准错误stderr对应显示器)宏定义FILE *
+
+//	system("pause");
+//	return 0;
+//}
