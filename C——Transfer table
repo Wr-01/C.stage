@@ -20,6 +20,7 @@ int division(int a, int b) {
 typedef (*func)(int, int);
 
 int main() {
+  //利用函数指针———建立转移表：降低圈复杂度！
 	func arr[]={
 		NULL,
 		add,
